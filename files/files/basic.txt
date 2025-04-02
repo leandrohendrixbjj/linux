@@ -37,9 +37,9 @@ rm -rf {nome_diretorio} => Apaga diretórios e arquivos. Apaga tudo independe de
 
 *********************************CP***********************************************************
 
-cp -r {dir_destino} => Você deve estar na diretório de origem
+cp -r {diretorio de destino} => COPIA para diretório de destino
 
-cp -r {dir_origem} {dir_destino} => Exemplo: cp -r ~/estudos/linux/ /tmp 
+cp -r {diretorio de origem} {diretorio de destino} => COPIA de origem para o destino
 
 *********************************MV-MK********************************************************
 mv {nome_atual} {novo_nome} => Renomea arquivo ou diretórios.
