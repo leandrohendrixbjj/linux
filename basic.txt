@@ -10,19 +10,27 @@ pwd --help => Apresenta o manual do comando informado
 
 df -h => possível consltar o path do pendrive, exemplo: /media/hendrix/UBUNTU 20_0
 *********************************LS*********************************
+
 ls => Lista o conteúdo ( menos os ocultos )
 ls -a  => Lista todos os arquivos e diretórios ( Incluso os ocultos ) 	
 ls -l   => Lista diretórios e acessos
 ls -al => Lista diretórios e acessos ( Incluso os ocultos ) 
 
-ls {parte_nome_arquivo} * => procura no diretorio arquivos como nome informado 
-ls {parte_nome_arquivo} ? => arquivos com um digito no final exemplo: arq1,arq2,arq3
-ls {parte_nome_arquivo} ?? => arquivos com dois digitos no final exemplo: arq10,arq78,arq90
-ls * {parte_nome_arquivo} * => arquivos que possuem parte do seu nome no inicio ou final: exemplo ls *1* => arq1,arq10,arq100,tmp1
-ls ??? [1-5]* => ? Representa qualquer caracter e [1-5] no final deve conter numero de 1 até 5, * qualquer coisa => exemplo arq1  arq2,arq3,arq5,tmp1,tmp2, tmp50
-ls [A,a]??? => Caso seja necessário apontar caracteres maíusculos 
-
 ll => Um atalho nativo do comando la -al
+
+*********************************GLOBBING*********************************
+
+Arquivos_exemplo: arq,arq1,arq2,arq11,arq100,1arq,files
+
+ls a* => procura no diretorio arquivos como nome informado => RESULTADO: arq,arq1,arq2,arq11,arq100
+
+ls arq? => arquivos com UM DIGITO no final => RESULTADO: arq1,arq2
+
+ls arq?? => arquivos com DOIS DIGITOS no final => RESULTADO: arq11
+
+ls [1-2]arq => que INICIAM com digito 1 ou 2 => RESULTADO: 1arq
+
+ls [A,a]* => procura caracteres maíusculos e minúsculo => arq  arq1  arq100  arq11  arq2  ARQ7 
 *********************************CD***********************************************************
 cd => Atalho para a sua home area, exemplo: /home/hendrix
 cd - => Faz um shift entre o diretório anterior e atual
@@ -41,10 +49,11 @@ cp -r {dir_destino} => Você deve estar na diretório de origem
 
 cp -r {dir_origem} {dir_destino} => Exemplo: cp -r ~/estudos/linux/ /tmp 
 
-*********************************MV-MK********************************************************
-mv {nome_atual} {novo_nome} => Renomea arquivo ou diretórios.
+*********************************MV********************************************************
 
-mv {DIR_origem} {DIR_destino} => Move o arquivo entre diretórios
+mv {nome_atual} {novo_nome} => RENOMEA arquivo ou diretórios.
+
+mv {DIR_origem} {DIR_destino} => MOVE o arquivo entre diretórios
 *********************************ALIAS********************************************************
 
 alias lista='ls' => criar um alias temporário (válido apenas para a sessão atual)
@@ -58,11 +67,20 @@ echo "alias atualizar='sudo apt update && sudo apt upgrade -y'" >> ~/.bashrc
 
 source ~/.bashrc => Atualiza o alias para usar na sessão atual
 *********************************TOUCH********************************************************
+
 1-) touch {nome_arq} => Cria um arquivo
 
 2-) echo "Welcome" > {nome_arq} => Escreve no arquivo
 
 3-) cat {nome_arq} => lê conteúdo do arquivo
+*********************************NANO********************************************************
+
+nano {file_name} => Acessa o arquivo
+Ctrl + O = Para salvar
+Ctrl + X = Para Sair
+Ctrl + K = Recortar
+Ctrl + U = Colar
+Ctrl + W = Buscar texto
 
 
 														 	 
