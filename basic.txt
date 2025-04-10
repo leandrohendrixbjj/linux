@@ -61,12 +61,18 @@ mv {DIR_origem} {DIR_destino} => MOVE o arquivo entre diretórios
 
 alias lista='ls' => criar um alias temporário (válido apenas para a sessão atual)
 
-micro ~/.bashrc
-  1-) CTRL + S
-  2-) CTRL + Q
-
 => Se quiser adicionar um alias sem abrir um editor, pode usar o echo
 echo "alias atualizar='sudo apt update && sudo apt upgrade -y'" >> ~/.bashrc
+
+=> Manipulação do arquivo
+micro ~/.bashrc
+  1-) CTRL + S => Save
+  2-) CTRL + Q => Sair
+  3-) CTRL + K => Recorta
+  3-) ALT + C => Copia
+  4-) CTRL + V => Cola
+  5-) CTRL + F => Procurar
+
 
 source ~/.bashrc => Atualiza o alias para usar na sessão atual
 *********************************TOUCH********************************************************

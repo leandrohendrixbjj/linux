@@ -1,7 +1,14 @@
+data = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+]
 
-data = ['php','java']
+for row in range(len(data)):
+   column = len(data) - 1 - row
+   print(data[row][column])
 
-if 'php' in data:
-  print('Welcome to Node')
+   
+
 
 
