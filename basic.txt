@@ -18,6 +18,9 @@ ls -al => Lista diretórios e acessos ( Incluso os ocultos )
 
 ll => Um atalho nativo do comando la -al
 
+ls -d */ => Lista apenas os diretórios
+ls -p | grep -v '/$' => Lista apenas os arquivos
+
 *********************************GLOBBING*********************************
 
 Arquivos_exemplo: arq,arq1,arq2,arq11,arq100,1arq,files
