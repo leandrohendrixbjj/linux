@@ -9,6 +9,8 @@ pwd => Em qual diretório você está
 pwd --help => Apresenta o manual do comando informado
 
 df -h => possível consltar o path do pendrive, exemplo: /media/hendrix/UBUNTU 20_0
+
+sudo -i =>Inicia o shell como superusuário
 *********************************LS*********************************
 
 ls => Lista o conteúdo ( menos os ocultos )
@@ -40,11 +42,20 @@ cd - => Faz um shift entre o diretório anterior e atual
 cd ~ => Retorna para o home
 cd ~/labs => Retorna para labs um diretório que está na home.
 
-*********************************MKDIR-RM*****************************************************
+*********************************MKDIR*****************************************************
+mkdir {nome_diretorio} => Cria um diretório
 																
 mkdir -p dir1/dir2 => Cria vários diretórios, sendo que dentro de dir1 está dir2
 
+*********************************REMOÇÃO*****************************************************
+
 rm -rf {nome_diretorio} => Apaga diretórios e arquivos. Apaga tudo independe de alguma restrição
+
+rm -i => Remove apenas Arquivos
+
+rm -ri => Remove Arquivos e Diretórios, solicita confirmação para cada arquivo
+
+rm -rI => Remove Arquivos e Diretórios, solicita confirmação uma unica vez.
 
 *********************************CP***********************************************************
 
@@ -52,7 +63,7 @@ cp -r {dir_destino} => Você deve estar na diretório de origem
 
 cp -r {dir_origem} {dir_destino} => Exemplo: cp -r ~/estudos/linux/ /tmp 
 
-*********************************MV********************************************************
+*********************************MV-RENOMEA***************************************************
 
 mv {nome_atual} {novo_nome} => RENOMEA arquivo ou diretórios.
 
@@ -64,7 +75,7 @@ alias lista='ls' => criar um alias temporário (válido apenas para a sessão at
 => Se quiser adicionar um alias sem abrir um editor, pode usar o echo
 echo "alias atualizar='sudo apt update && sudo apt upgrade -y'" >> ~/.bashrc
 
-=> Manipulação do arquivo
+=> Manipulação do arquivo 
 micro ~/.bashrc
   1-) CTRL + S => Save
   2-) CTRL + Q => Sair
@@ -75,15 +86,15 @@ micro ~/.bashrc
 
 
 source ~/.bashrc => Atualiza o alias para usar na sessão atual
-*********************************TOUCH********************************************************
 
+*********************************TOUCH********************************************************
 1-) touch {nome_arq} => Cria um arquivo
 
 2-) echo "Welcome" > {nome_arq} => Escreve no arquivo
 
 3-) cat {nome_arq} => lê conteúdo do arquivo
-*********************************NANO********************************************************
 
+*********************************NANO********************************************************
 nano {file_name} => Acessa o arquivo
 Ctrl + O = Para salvar
 Ctrl + X = Para Sair
@@ -91,8 +102,113 @@ Ctrl + K = Recortar
 Ctrl + U = Colar
 Ctrl + W = Buscar texto
 
+*********************************tmux********************************************************
+horizontalmente: Ctrl + b, depois "
+verticalmente: Ctrl + b, depois %
+Navegar entre painéis: Ctrl + b, depois a seta (← ↑ → ↓)
+*********************************Sistema de arquivos*****************************************
 
+/bin → armazenamento de arquivos binários essenciais do sistema.
+
+/boot → armazenamento de arquivos necessários para a inicialização do sistema, incluindo o carregador de inicialização 
+(boot loader) e o kernel do Linux.
+
+/dev → armazenamento de arquivos de dispositivo (device files) que representam dispositivos de hardware, como discos 
+rígidos, terminais e outros periféricos.
+
+/etc → armazenamento de arquivos de configuração do sistema.
+
+/home → armazenamento de diretórios pessoais dos usuários.
+
+/lib → armazenamento de bibliotecas compartilhadas essenciais para binários localizados nos diretórios /bin e \sbin.
+
+/media → ponto de montagem para mídias removíveis (drivers USB, por exemplo).
+
+/mnt → ponto de montagem temporária para sistemas de arquivos. Usado para montar temporariamente outros sistemas de arquivos durante a administração do sistema.
+
+/opt → armazenamento de aplicativos opcionais e pacotes de software adicionais que não fazem parte da instalação padrão do sistema.
+
+/proc → sistema de arquivos virtual que armazena informações sobre os processos em execução e o estado do kernel.
+
+/root → diretório pessoal do usuário root (superusuário).
+
+/run → armazenamento de informações voláteis sobre o sistema desde a última inicialização, como PID files e sockets.
+
+/sbin → armazenamento de binários essenciais para a administração do sistema, necessários para o boot e recuperação do sistema.
+
+/srv → armazenamento de dados específicos de serviços fornecidos pelo sistema.
+
+/sys → sistema de arquivos virtual que fornece informações e interfaces para o kernel do Linux.
+
+/tmp → armazenamento de arquivos temporários criados por aplicativos e pelo sistema. Esses arquivos geralmente são excluídos ao reiniciar o sistema.
+
+/usr → armazenamento de dados de usuário mais instalados pelo sistema, incluindo binários adicionais, bibliotecas e arquivos de cabeçalho.
+
+/var → armazenamento de arquivos variáveis, como logs, filas de email e arquivos de spool.
+
+*********************************UPDATE E UPGRADE*****************************************
 														 	 
+sudo apt update => # Atualiza a lista de pacotes
+sudo apt upgrade =>  # Atualiza os pacotes instalados para as versões mais recentes
+
+sudo apt autoremove => #  Remove pacotes e dependências que foram instalados automaticamente e que não são mais necessários.
+(  Fique atento: Ele mostra o que será removido antes de executar. Revise a lista! )
+
+sudo apt clean => Limpa completamente o cache de pacotes armazenados em /var/cache/apt/archives, liberando espaço em disco.
+( Isso não afeta os pacotes instalados, só remove os arquivos .deb baixados anteriormente. )
+
+sudo apt autoclean => Semelhante ao clean, mas remove somente os pacotes do cache que não podem mais ser baixados (versões antigas ou obsoletas).
+( Quando usar: De tempos em tempos, como manutenção leve.)
+
+*********************************Executar job em Bash*****************************************
+1-) Abra o terminal e crie o arquivo com o nome desejado, por exemplo: => micro job_runner.sh
+
+2-) 
+#!/bin/bash
+
+# Nome do container Docker
+CONTAINER_NAME="php74"
+
+# Caminho do arquivo PHP dentro do container
+PHP_FILE="vetor-zero/jobs/job_nivel_cliente_motor_pontos.php"
+
+# Loop infinito para executar o job periodicamente
+while true; do
+    echo "Executando job: $PHP_FILE no container: $CONTAINER_NAME"
+    
+    # Executa o arquivo PHP dentro do container
+    docker exec -it "$CONTAINER_NAME" php "$PHP_FILE"
+
+    # Aguarda 30 segundos antes da próxima execução
+    sleep 30
+done
+
+3-) Salve e feche o arquivo
+
+4-) Dê permissão de execução => chmod +x job_runner.sh
+5-) ./job_runner.sh
+*********************************PROCESSOS*****************************************
+
+htop => Apresenta os processos do sistema EM TEMPO REAL ( f6 para ordenar )
+
+ps => Apresenta uma foto do momento, sobre os processos do sistema
+
+ps aux => Exibir todos os processos de todos os usuários, incluindo os que não estão conectados a um terminal 
+
+ps aux --sort=-%mem | head -n 16 => 15 processos com maior consumo de memória
+
+ps aux | grep mysql => Filtra os processos do mysql
+
+ps -ef => Ver todos os processos ( Apresenta o PID dos processos )
+
+ps -p <PID>: Para inspecionar um processo específico
+
+ps -u {userName} => Para ver os processos de um usuário específico
+
+kill
+  1-) Abra uma aba do terminal e digite nano
+  2-) Em outra aba digite ps aux no final devemos ver o PID do nano
+  3-) Digite kill {PID}, e observe no outro terminal que o nano foi encerrado
 
 
 
